@@ -1,0 +1,110 @@
+<html>
+
+<head>
+   <style>
+   
+   #label{
+   font-size: 36pt;
+   text-align:center;
+   color: darkblue;
+   
+   }
+   #fingers{
+   background-image: url('./1/Image1.jpg')      ;
+   background-size: auto 100%;
+   width: auto;
+   height: 100%;
+   background-repeat: no-repeat;
+   
+   }
+   </style>
+</head>
+<body>
+<div><a href="http://action.city">ACTION.CITY</a></div>
+<div id=label></div>
+<div id=fingers></div>
+
+</body>
+
+<script>
+      var finger_idx = 0;
+      var old_finger_idx = finger_idx;
+      var frame_idx = 0;
+      
+      var myImage = new Array();
+      
+      function preloadImage() {
+      
+        for(var i = 1; i <=5; i++){
+         var frame = new Array();
+         
+         
+        for(var j = 1; j <=10; j++){
+          var url =              "./" + i + "/Image"+ j + ".jpg" ;
+          var image = new Image( );
+          image.src = url
+          frame.push( image );
+        
+        }
+         
+         
+         
+         
+         myImage.push(frame)
+         }
+      }
+      
+      function animate(){
+        document.getElementById('fingers').style.backgroundImage =  "url(" + myImage[finger_idx][frame_idx].src + ")";
+        
+        
+        frame_idx ++;
+        
+        if (frame_idx <= 9){
+            setTimeout(animate, 100); 
+        }   else{
+            frame_idx = 0;
+            
+            switch( finger_idx ){
+        case 0: 
+          document.getElementById('label').innerHTML = "Thumb !<br>";  break;
+        case 1: 
+          document.getElementById('label').innerHTML = "Index Finger !<br>";  break;
+        case 2: 
+          document.getElementById('label').innerHTML = "Middle Finger !<br>"; break;
+        case 3: 
+          document.getElementById('label').innerHTML = "Ring Finger !<br>";  break;
+        case 4: 
+          document.getElementById('label').innerHTML = "Pinky !<br>";  break;
+        
+        }   
+        
+        
+            setTimeout(nextFinger, 5000); 
+        }
+      
+      
+      }
+      
+      function nextFinger(){
+        old_finger_idx = finger_idx;
+        while( finger_idx == old_finger_idx ){
+          finger_idx = Math.round(Math.random() * 4,1 ) ;
+        }                                                 
+                          
+          document.getElementById('label').innerHTML = "???"; 
+        document.getElementById('fingers').style.backgroundImage =  "url(" + myImage[finger_idx][frame_idx].src + ")";
+        
+        
+        setTimeout(animate, 2000); 
+        
+                  
+      }
+      
+      preloadImage();
+      nextFinger();
+      
+      
+</script>
+
+</html>
